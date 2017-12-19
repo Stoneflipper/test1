@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Length by Steinwender </title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <script type="text/javascript">
+
+        var Zentimeter = new Array(1, 0.01, 0.3937, 0.0328,); //Variable erzeugen; neues Array erstellen; Items sind Werte zur Umrechnung, Ausgang ist Zentimeter
+        var Meter = new Array(100, 1, 39.37, 3.28,);
+        var Inch = new Array(2.54, 0.0254, 1, 0.08333,);
+        var Foot = new Array(30.48, 0.3048, 12, 1,);
+        var Faktoren = new Array(Zentimeter,Meter,Inch,Foot);
+
+        function Einheit_umwandeln()
+            {
+	        from_function = document.length_con.from_unit.selectedIndex;
+	        to_function = document.length_con.to_unit.selectedIndex;
+	        factor = Faktoren[from_function][to_function];
+	        document.getElementById("formula").innerHTML = document.length_con.from_unit.options[document.length_con.from_unit.selectedIndex].text + " = " + factor + " " + document.length_con.to_unit.options[document.length_con.to_unit.selectedIndex].text;  //The selectedIndex property sets or returns the index of the selected option in a drop-down list
+	        if(isNaN(document.length_con.from_value.value))
+	    	document.getElementById("to_value").innerHTML = "Not a valid number."; //Überprüfung, ob Eingabe eine Zahl ist
+	        else
+	    	document.getElementById("to_value").innerHTML = factor * document.length_con.from_value.value; //Fktor mit eingegeber Zahl multiplizieren
+            }
+    </script>
+    <style>
+    * {
+      font-family: verdana;
+      background-color: #eeeeee;
+    }
+    </style>
+</head>
+<body>
+    <h1>Length Converter by Steinwender</h1>
+    <p>
+        <b>1</b> Die Auswahl der Ausgangseinheit und der Zieleinheit erfolgt mittels Dropdown-Menüs.
+        <br/>
+        <b>2</b> Die Eingabe des umzurechnenden Wertes erfolgt in dem Input-Feld "Value".
+        <br/>
+        <b>3</b> Durch Klick auf den Button "Calculate" wird das Ergebnis berechnet und bei "Result" angezeigt.
+    <p>
+        
+    <form name="length_con"> <!--Eingabe Feld "Form"-->
+
+    <table>
+
+	<tr>  <!--"tr" steht für Reihe-->
+		<td>From:</td>  <!--"td" steht für Zelle-->
+
+		<td>
+			<select name=from_unit onChange="Einheit_umwandeln()";> <!--Wert soll sich mit Drücken des Buttons ändern, deswegen braucht man "onChange"; "name" steht für die Bezeichnung der Drop-Dowm-Liste-->
+			<option> Zentimeter
+			<option> Meter
+			<option> Inch
+			<option> Foot
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>To:</td>
+		<td>
+			<select name=to_unit onChange="Einheit_umwandeln()";>
+			<option> Zentimeter
+			<option> Meter
+			<option> Inch
+			<option> Foot
+			</select>
+
+		</td>
+	</tr>
+	<tr>
+		<td>Value:</td>
+		<td><input type="text" name="from_value" value="1" size="12" maxlength="12"></td>
+	</tr>
+	<tr>
+		<td></td><td colspan="3"><div id="formula">Zentimeter = 1 Zentimeter</div></td>
+	</tr>
+	<tr>
+		<td><input type=button value="Calculate!" onClick="Einheit_umwandeln()";></td>
+	</tr>
+	<tr>
+	    <td><b>Result:</b></td>
+		<td><b><div id="to_value">1</div></b></td>
+	</tr>
+    </table>
+
+    </form>
+</body>
+</html>
